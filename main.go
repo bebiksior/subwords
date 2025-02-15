@@ -47,6 +47,11 @@ func parseSubdomain(subdomain string) []string {
 		if strings.Contains(part, "-") {
 			subParts := strings.Split(part, "-")
 			result = append(result, subParts...)
+
+			if strings.Contains(part, "_") {
+				subParts := strings.Split(part, "_")
+				result = append(result, subParts...)
+			}
 		}
 	}
 	return result
@@ -87,6 +92,7 @@ func processWords(words []string, limit int) []wordCount {
 func main() {
 	inputFile := flag.String("i", "", "input file with subdomains")
 	limit := flag.Int("limit", 0, "limit output to top N most frequent words (0 for all)")
+	stats := flag.Bool("stats", false, "include statistics in output")
 	flag.Parse()
 
 	lines, err := readInput(*inputFile)
@@ -103,6 +109,10 @@ func main() {
 	wordCounts := processWords(allWords, *limit)
 
 	for _, wc := range wordCounts {
-		fmt.Println(wc.word)
+		if *stats {
+			fmt.Printf("%s (%d occurrences)\n", wc.word, wc.count)
+		} else {
+			fmt.Println(wc.word)
+		}
 	}
 }

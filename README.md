@@ -18,6 +18,9 @@ subwords -i subdomains.txt
 
 # Limit output to top N most frequent words
 subwords -i subdomains.txt -limit 10
+
+# Include statistics in output
+subwords -i subdomains.txt -stats
 ```
 
-The tool splits subdomains by dots (.) and hyphens (-), counts the frequency of each word, and outputs them sorted by frequency.
+The tool splits subdomains by dots (.), hyphens (-), and underscores (_), counts the frequency of each word, and outputs them sorted by frequency.
